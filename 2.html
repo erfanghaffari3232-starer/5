@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آزمون کیوت درس همدلی با دیگران 🎈</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            background-color: #fdf6f0;
+            background-image: radial-gradient(#f0e6ff 2px, transparent 2px);
+            background-size: 30px 30px;
+            color: #4a4a4a;
+            line-height: 1.9;
+            padding: 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* هدر کیوت */
+        .cute-header {
+            background: linear-gradient(135deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
+            border-radius: 30px;
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(255, 170, 165, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .cute-header h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+            font-size: 2em;
+            margin: 0;
+            font-weight: 900;
+        }
+        .cute-header p {
+            color: #fff;
+            font-weight: 700;
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .cute-header .deco {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0.6;
+        }
+        .deco-star1 { top: 10px; right: 15px; }
+        .deco-star2 { bottom: 10px; left: 15px; }
+        .deco-cloud1 { top: 20px; left: 20px; font-size: 1.5em;}
+        .deco-cloud2 { bottom: 20px; right: 25px; font-size: 1.5em;}
+
+        /* جعبه سوالات */
+        .question-box {
+            background-color: #ffffff;
+            border: 3px solid #e0f7fa;
+            border-radius: 20px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .question-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-color: #b2ebf2;
+        }
+        .question-box.correct {
+            border-color: #a5d6a7;
+            background-color: #f1f8e9;
+        }
+        .question-box.wrong {
+            border-color: #ef9a9a;
+            background-color: #ffebee;
+        }
+        
+        .question-text {
+            font-weight: 900;
+            color: #6a1b9a;
+            font-size: 1.15em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .question-text::before {
+            content: "❓";
+            margin-left: 8px;
+            font-size: 1.2em;
+        }
+
+        /* گزینه‌ها */
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .option {
+            background-color: #f3e5f5;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.95em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            color: #4a148c;
+            font-weight: 700;
+        }
+        .option:hover {
+            background-color: #e1bee7;
+            transform: scale(1.02);
+        }
+        .option input[type="radio"] {
+            margin-left: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #ab47bc;
+        }
+        .option input[type="radio"]:checked + span {
+            color: #6a1b9a;
+        }
+
+        /* پاسخ صحیح */
+        .answer {
+            display: none;
+            background-color: #e0f2f1;
+            border-right: 6px solid #4db6ac;
+            padding: 12px;
+            border-radius: 12px;
+            color: #00695c;
+            font-size: 0.95em;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+        .answer strong {
+            color: #004d40;
+        }
+        .answer.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* بخش پایین آزمون */
+        .exam-footer {
+            background: linear-gradient(135deg, #fff9c4, #f8bbd0);
+            border-radius: 30px;
+            padding: 30px 25px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 25px rgba(248, 187, 208, 0.4);
+            border: 4px dashed #f48fb1;
+        }
+        .exam-footer h2 {
+            margin-top: 0;
+            color: #ad1457;
+            font-size: 1.6em;
+            font-weight: 900;
+        }
+        .exam-footer p {
+            color: #6a1b9a;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        /* دکمه‌ها */
+        .btn-submit {
+            background: linear-gradient(135deg, #66bb6a, #43a047);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 6px 0 #2e7d32, 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .btn-submit:hover {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #2e7d32, 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .btn-submit:active {
+            transform: translateY(6px);
+            box-shadow: 0 0px 0 #2e7d32;
+        }
+
+        /* جعبه نتیجه */
+        .result-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            border: 3px solid #ce93d8;
+            box-shadow: 0 4px 15px rgba(206, 147, 216, 0.3);
+        }
+        .result-box.show {
+            display: block;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-text {
+            font-size: 1.8em;
+            font-weight: 900;
+            color: #6a1b9a;
+            margin-bottom: 10px;
+        }
+        .score-text span {
+            color: #e91e63;
+            font-size: 1.3em;
+            text-shadow: 1px 1px 2px rgba(233, 30, 99, 0.2);
+        }
+        .feedback {
+            font-size: 1.2em;
+            color: #4a148c;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .btn-reset {
+            background: linear-gradient(135deg, #ef5350, #e53935);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 5px 0 #b71c1c, 0 7px 12px rgba(0,0,0,0.2);
+        }
+        .btn-reset:hover {
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #b71c1c, 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .btn-reset:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 #b71c1c;
+        }
+
+        @media (max-width: 600px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            .cute-header h1 {
+                font-size: 1.5em;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر کیوت -->
+    <div class="cute-header">
+        <span class="deco deco-star1">⭐</span>
+        <span class="deco deco-star2">🌟</span>
+        <span class="deco deco-cloud1">☁️</span>
+        <span class="deco deco-cloud2">☁️</span>
+        <h1>🎈 آزمون درس «همدلی با دیگران» 🎈</h1>
+        <p>تعداد سوالات: ۳۵ | نمره کل: ۲۰ | پایه پنجم دبستان</p>
+    </div>
+
+    <form id="quizForm">
+        <!-- سوال ۱ -->
+        <div class="question-box" id="q1">
+            <div class="question-text">۱. همدلی به چه معناست؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q1" value="a"> <span>الف) همدردی کردن با دیگران</span></label>
+                <label class="option"><input type="radio" name="q1" value="b"> <span>ب) درک کردن احساسات و شرایط دیگران</span></label>
+                <label class="option"><input type="radio" name="q1" value="c"> <span>ج) کمک مالی به نیازمندان</span></label>
+                <label class="option"><input type="radio" name="q1" value="d"> <span>د) دوست پیدا کردن در مدرسه</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) درک کردن احساسات و شرایط دیگران</div>
+        </div>
+
+        <!-- سوال ۲ -->
+        <div class="question-box" id="q2">
+            <div class="question-text">۲. وقتی کسی غمگین است، اولین کار برای همدلی با او چیست؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q2" value="a"> <span>الف) پرسیدن اینکه چه احساسی دارد</span></label>
+                <label class="option"><input type="radio" name="q2" value="b"> <span>ب) دعوت او به بازی</span></label>
+                <label class="option"><input type="radio" name="q2" value="c"> <span>ج) نصیحت کردن او</span></label>
+                <label class="option"><input type="radio" name="q2" value="d"> <span>د) نادیده گرفتن او</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) پرسیدن اینکه چه احساسی دارد</div>
+        </div>
+
+        <!-- سوال ۳ -->
+        <div class="question-box" id="q3">
+            <div class="question-text">۳. کدام یک از موارد زیر از کارهایی است که می‌توانیم برای کمک به فرد غمگین انجام دهیم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q3" value="a"> <span>الف) به حرف‌هایش خوب گوش دادن</span></label>
+                <label class="option"><input type="radio" name="q3" value="b"> <span>ب) عوض کردن موضوع صحبت</span></label>
+                <label class="option"><input type="radio" name="q3" value="c"> <span>ج) مقایسه کردن او با دیگران</span></label>
+                <label class="option"><input type="radio" name="q3" value="d"> <span>د) تنها گذاشتن او</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) به حرف‌هایش خوب گوش دادن</div>
+        </div>
+
+        <!-- سوال ۴ -->
+        <div class="question-box" id="q4">
+            <div class="question-text">۴. هنگام همدلی با فرد غمگین، چه جمله‌ای می‌توانیم بگوییم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q4" value="a"> <span>الف) «خودت را نباز، مهم نیست»</span></label>
+                <label class="option"><input type="radio" name="q4" value="b"> <span>ب) «آیا از من می‌توانم برای تو انجام دهم؟»</span></label>
+                <label class="option"><input type="radio" name="q4" value="c"> <span>ج) «تقصیر خودت بود»</span></label>
+                <label class="option"><input type="radio" name="q4" value="d"> <span>د) «من هم غمگینم»</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) «آیا از من می‌توانم برای تو انجام دهم؟»</div>
+        </div>
+
+        <!-- سوال ۵ -->
+        <div class="question-box" id="q5">
+            <div class="question-text">۵. چرا همدلی مهم است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q5" value="a"> <span>الف) باعث می‌شود دوستی‌ها قوی‌تر شود</span></label>
+                <label class="option"><input type="radio" name="q5" value="b"> <span>ب) باعث افزایش محبت در جامعه می‌شود</span></label>
+                <label class="option"><input type="radio" name="q5" value="c"> <span>ج) احساس آرامش و امنیت ایجاد می‌کند</span></label>
+                <label class="option"><input type="radio" name="q5" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۶ -->
+        <div class="question-box" id="q6">
+            <div class="question-text">۶. کدام نهاد در حوادثی مثل زلزله و سیل به مردم کمک می‌کند؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q6" value="a"> <span>الف) سازمان انتقال خون</span></label>
+                <label class="option"><input type="radio" name="q6" value="b"> <span>ب) جمعیت هلال احمر</span></label>
+                <label class="option"><input type="radio" name="q6" value="c"> <span>ج) آموزش و پرورش</span></label>
+                <label class="option"><input type="radio" name="q6" value="d"> <span>د) شهرداری</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) جمعیت هلال احمر</div>
+        </div>
+
+        <!-- سوال ۷ -->
+        <div class="question-box" id="q7">
+            <div class="question-text">۷. سازمان انتقال خون چه وظیفه‌ای دارد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q7" value="a"> <span>الف) کمک به مجروحان جنگی</span></label>
+                <label class="option"><input type="radio" name="q7" value="b"> <span>ب) جمع‌آوری خون سالم و رساندن به بیماران</span></label>
+                <label class="option"><input type="radio" name="q7" value="c"> <span>ج) آموزش امداد و نجات</span></label>
+                <label class="option"><input type="radio" name="q7" value="d"> <span>د) ساخت بیمارستان</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) جمع‌آوری خون سالم و رساندن به بیماران</div>
+        </div>
+
+        <!-- سوال ۸ -->
+        <div class="question-box" id="q8">
+            <div class="question-text">۸. افراد از چه سنی می‌توانند خون اهدا کنند؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q8" value="a"> <span>الف) ۱۵ سالگی</span></label>
+                <label class="option"><input type="radio" name="q8" value="b"> <span>ب) ۱۶ سالگی</span></label>
+                <label class="option"><input type="radio" name="q8" value="c"> <span>ج) ۱۸ سالگی</span></label>
+                <label class="option"><input type="radio" name="q8" value="d"> <span>د) ۲۰ سالگی</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ج) ۱۸ سالگی</div>
+        </div>
+
+        <!-- سوال ۹ -->
+        <div class="question-box" id="q9">
+            <div class="question-text">۹. کدام یک از موارد زیر نمونه‌ای از همدلی در خانه است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q9" value="a"> <span>الف) کمک به پدر و مادر در کارها</span></label>
+                <label class="option"><input type="radio" name="q9" value="b"> <span>ب) تماشای تلویزیون</span></label>
+                <label class="option"><input type="radio" name="q9" value="c"> <span>ج) بازی با گوشی</span></label>
+                <label class="option"><input type="radio" name="q9" value="d"> <span>د) خوابیدن</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) کمک به پدر و مادر در کارها</div>
+        </div>
+
+        <!-- سوال ۱۰ -->
+        <div class="question-box" id="q10">
+            <div class="question-text">۱۰. چگونه می‌توانیم به همسایه پیر و نیازمند کمک کنیم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q10" value="a"> <span>الف) با خرید یا انجام کارهای ساده برای آن‌ها</span></label>
+                <label class="option"><input type="radio" name="q10" value="b"> <span>ب) با دعوت آن‌ها به مهمانی</span></label>
+                <label class="option"><input type="radio" name="q10" value="c"> <span>ج) با صحبت کردن درباره مشکلات</span></label>
+                <label class="option"><input type="radio" name="q10" value="d"> <span>د) با دادن پول زیاد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) با خرید یا انجام کارهای ساده برای آن‌ها</div>
+        </div>
+
+        <!-- سوال ۱۱ -->
+        <div class="question-box" id="q11">
+            <div class="question-text">۱۱. همدلی در مدرسه چه شکلی است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q11" value="a"> <span>الف) اگر دوستی غمگین است، با او همدلی کنیم</span></label>
+                <label class="option"><input type="radio" name="q11" value="b"> <span>ب) به درس و کارهایش رسیدگی کنیم</span></label>
+                <label class="option"><input type="radio" name="q11" value="c"> <span>ج) او را تشویق کنیم</span></label>
+                <label class="option"><input type="radio" name="q11" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۱۲ -->
+        <div class="question-box" id="q12">
+            <div class="question-text">۱۲. جمله «همدلی یعنی اینکه خودمان را جای دیگران بگذاریم» بیانگر چیست؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q12" value="a"> <span>الف) تعریف همدلی</span></label>
+                <label class="option"><input type="radio" name="q12" value="b"> <span>ب) تعریف دوستی</span></label>
+                <label class="option"><input type="radio" name="q12" value="c"> <span>ج) تعریف محبت</span></label>
+                <label class="option"><input type="radio" name="q12" value="d"> <span>د) تعریف احترام</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) تعریف همدلی</div>
+        </div>
+
+        <!-- سوال ۱۳ -->
+        <div class="question-box" id="q13">
+            <div class="question-text">۱۳. کدام یک از کارهای زیر باعث تقویت همدلی نمی‌شود؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q13" value="a"> <span>الف) گوش دادن به حرف‌های دیگران</span></label>
+                <label class="option"><input type="radio" name="q13" value="b"> <span>ب) درک احساسات دیگران</span></label>
+                <label class="option"><input type="radio" name="q13" value="c"> <span>ج) مسخره کردن احساسات دیگران</span></label>
+                <label class="option"><input type="radio" name="q13" value="d"> <span>د) کمک به نیازمندان</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ج) مسخره کردن احساسات دیگران</div>
+        </div>
+
+        <!-- سوال ۱۴ -->
+        <div class="question-box" id="q14">
+            <div class="question-text">۱۴. جمعیت هلال احمر در چه زمینه‌هایی به مردم کمک می‌کند؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q14" value="a"> <span>الف) در حوادث طبیعی مثل زلزله و سیل</span></label>
+                <label class="option"><input type="radio" name="q14" value="b"> <span>ب) رساندن غذا، آب و دارو به آسیب‌دیدگان</span></label>
+                <label class="option"><input type="radio" name="q14" value="c"> <span>ج) کمک به مجروحان</span></label>
+                <label class="option"><input type="radio" name="q14" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۱۵ -->
+        <div class="question-box" id="q15">
+            <div class="question-text">۱۵. اهدای خون چه فوایدی برای جامعه دارد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q15" value="a"> <span>الف) به بیماران نیازمند کمک می‌کند</span></label>
+                <label class="option"><input type="radio" name="q15" value="b"> <span>ب) باعث سلامت خود فرد می‌شود</span></label>
+                <label class="option"><input type="radio" name="q15" value="c"> <span>ج) باعث افزایش جمعیت می‌شود</span></label>
+                <label class="option"><input type="radio" name="q15" value="d"> <span>د) باعث کاهش بیماری‌ها می‌شود</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) به بیماران نیازمند کمک می‌کند</div>
+        </div>
+
+        <!-- سوال ۱۶ -->
+        <div class="question-box" id="q16">
+            <div class="question-text">۱۶. چرا باید به حرف‌های فرد غمگین خوب گوش دهیم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q16" value="a"> <span>الف) تا احساس بهتری پیدا کند</span></label>
+                <label class="option"><input type="radio" name="q16" value="b"> <span>ب) تا ما را دوست داشته باشد</span></label>
+                <label class="option"><input type="radio" name="q16" value="c"> <span>ج) تا مشکلش حل شود</span></label>
+                <label class="option"><input type="radio" name="q16" value="d"> <span>د) تا ما خسته شویم</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) تا احساس بهتری پیدا کند</div>
+        </div>
+
+        <!-- سوال ۱۷ -->
+        <div class="question-box" id="q17">
+            <div class="question-text">۱۷. کدام گزینه نمونه‌ای از همدلی در جامعه است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q17" value="a"> <span>الف) کمک به نیازمندان</span></label>
+                <label class="option"><input type="radio" name="q17" value="b"> <span>ب) شرکت در کارهای خیر</span></label>
+                <label class="option"><input type="radio" name="q17" value="c"> <span>ج) اهدای خون</span></label>
+                <label class="option"><input type="radio" name="q17" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۱۸ -->
+        <div class="question-box" id="q18">
+            <div class="question-text">۱۸. جمله «بیایید با مهربانی، دنیا را قشنگ‌تر کنیم» به چه چیزی اشاره دارد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q18" value="a"> <span>الف) اهمیت همدلی و مهربانی</span></label>
+                <label class="option"><input type="radio" name="q18" value="b"> <span>ب) اهمیت پول</span></label>
+                <label class="option"><input type="radio" name="q18" value="c"> <span>ج) اهمیت درس خواندن</span></label>
+                <label class="option"><input type="radio" name="q18" value="d"> <span>د) اهمیت بازی کردن</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) اهمیت همدلی و مهربانی</div>
+        </div>
+
+        <!-- سوال ۱۹ -->
+        <div class="question-box" id="q19">
+            <div class="question-text">۱۹. کدام یک از کارهای زیر باعث می‌شود فرد غمگین احساس بهتری داشته باشد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q19" value="a"> <span>الف) پرسیدن حال او</span></label>
+                <label class="option"><input type="radio" name="q19" value="b"> <span>ب) گوش دادن به حرف‌هایش</span></label>
+                <label class="option"><input type="radio" name="q19" value="c"> <span>ج) کمک کردن به او</span></label>
+                <label class="option"><input type="radio" name="q19" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۲۰ -->
+        <div class="question-box" id="q20">
+            <div class="question-text">۲۰. همدلی چه تأثیری بر جامعه دارد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q20" value="a"> <span>الف) باعث افزایش محبت و احترام می‌شود</span></label>
+                <label class="option"><input type="radio" name="q20" value="b"> <span>ب) باعث افزایش جمعیت می‌شود</span></label>
+                <label class="option"><input type="radio" name="q20" value="c"> <span>ج) باعث کاهش پول می‌شود</span></label>
+                <label class="option"><input type="radio" name="q20" value="d"> <span>د) باعث افزایش ترافیک می‌شود</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) باعث افزایش محبت و احترام می‌شود</div>
+        </div>
+
+        <!-- سوال ۲۱ -->
+        <div class="question-box" id="q21">
+            <div class="question-text">۲۱. در همدلی، چه چیزی را باید درک کنیم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q21" value="a"> <span>الف) احساسات و شرایط دیگران</span></label>
+                <label class="option"><input type="radio" name="q21" value="b"> <span>ب) پول دیگران</span></label>
+                <label class="option"><input type="radio" name="q21" value="c"> <span>ج) خانه دیگران</span></label>
+                <label class="option"><input type="radio" name="q21" value="d"> <span>د) ماشین دیگران</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) احساسات و شرایط دیگران</div>
+        </div>
+
+        <!-- سوال ۲۲ -->
+        <div class="question-box" id="q22">
+            <div class="question-text">۲۲. کدام یک از نهادهای زیر برای کمک به نیازمندان خون جمع‌آوری می‌کند؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q22" value="a"> <span>الف) هلال احمر</span></label>
+                <label class="option"><input type="radio" name="q22" value="b"> <span>ب) سازمان انتقال خون</span></label>
+                <label class="option"><input type="radio" name="q22" value="c"> <span>ج) شهرداری</span></label>
+                <label class="option"><input type="radio" name="q22" value="d"> <span>د) آموزش و پرورش</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) سازمان انتقال خون</div>
+        </div>
+
+        <!-- سوال ۲۳ -->
+        <div class="question-box" id="q23">
+            <div class="question-text">۲۳. چه کسی می‌تواند خون اهدا کند؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q23" value="a"> <span>الف) هر کسی که سالم باشد و ۱۸ سال داشته باشد</span></label>
+                <label class="option"><input type="radio" name="q23" value="b"> <span>ب) هر کسی که بیمار باشد</span></label>
+                <label class="option"><input type="radio" name="q23" value="c"> <span>ج) هر کسی که ۱۰ سال داشته باشد</span></label>
+                <label class="option"><input type="radio" name="q23" value="d"> <span>د) هر کسی که پول داشته باشد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) هر کسی که سالم باشد و ۱۸ سال داشته باشد</div>
+        </div>
+
+        <!-- سوال ۲۴ -->
+        <div class="question-box" id="q24">
+            <div class="question-text">۲۴. اگر دوستی در مدرسه غمگین باشد، چه کار می‌توانیم بکنیم؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q24" value="a"> <span>الف) با او همدلی کنیم و به درسش رسیدگی کنیم</span></label>
+                <label class="option"><input type="radio" name="q24" value="b"> <span>ب) او را مسخره کنیم</span></label>
+                <label class="option"><input type="radio" name="q24" value="c"> <span>ج) او را تنها بگذاریم</span></label>
+                <label class="option"><input type="radio" name="q24" value="d"> <span>د) به معلم بگوییم</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) با او همدلی کنیم و به درسش رسیدگی کنیم</div>
+        </div>
+
+        <!-- سوال ۲۵ -->
+        <div class="question-box" id="q25">
+            <div class="question-text">۲۵. همدلی با پدر و مادر چگونه است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q25" value="a"> <span>الف) با کمک کردن در کارهای خانه</span></label>
+                <label class="option"><input type="radio" name="q25" value="b"> <span>ب) با دعوا کردن</span></label>
+                <label class="option"><input type="radio" name="q25" value="c"> <span>ج) با بی‌توجهی</span></label>
+                <label class="option"><input type="radio" name="q25" value="d"> <span>د) با تماشای تلویزیون</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) با کمک کردن در کارهای خانه</div>
+        </div>
+
+        <!-- سوال ۲۶ -->
+        <div class="question-box" id="q26">
+            <div class="question-text">۲۶. کدام یک از موارد زیر از فواید همدلی است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q26" value="a"> <span>الف) افزایش آرامش و امنیت</span></label>
+                <label class="option"><input type="radio" name="q26" value="b"> <span>ب) افزایش دوستی‌ها</span></label>
+                <label class="option"><input type="radio" name="q26" value="c"> <span>ج) افزایش محبت در جامعه</span></label>
+                <label class="option"><input type="radio" name="q26" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۲۷ -->
+        <div class="question-box" id="q27">
+            <div class="question-text">۲۷. چرا همدلی باعث شادتر شدن زندگی می‌شود؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q27" value="a"> <span>الف) چون باعث افزایش مهربانی می‌شود</span></label>
+                <label class="option"><input type="radio" name="q27" value="b"> <span>ب) چون باعث افزایش پول می‌شود</span></label>
+                <label class="option"><input type="radio" name="q27" value="c"> <span>ج) چون باعث افزایش جمعیت می‌شود</span></label>
+                <label class="option"><input type="radio" name="q27" value="d"> <span>د) چون باعث کاهش دوستی می‌شود</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) چون باعث افزایش مهربانی می‌شود</div>
+        </div>
+
+        <!-- سوال ۲۸ -->
+        <div class="question-box" id="q28">
+            <div class="question-text">۲۸. کدام یک از کارهای زیر باعث همدلی بیشتر با همسایه می‌شود؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q28" value="a"> <span>الف) خرید کردن برای همسایه پیر</span></label>
+                <label class="option"><input type="radio" name="q28" value="b"> <span>ب) انجام کارهای ساده برای او</span></label>
+                <label class="option"><input type="radio" name="q28" value="c"> <span>ج) احوال‌پرسی از او</span></label>
+                <label class="option"><input type="radio" name="q28" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۲۹ -->
+        <div class="question-box" id="q29">
+            <div class="question-text">۲۹. در همدلی، چه چیزی مهم است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q29" value="a"> <span>الف) درک کردن دیگران</span></label>
+                <label class="option"><input type="radio" name="q29" value="b"> <span>ب) نصیحت کردن دیگران</span></label>
+                <label class="option"><input type="radio" name="q29" value="c"> <span>ج) مسخره کردن دیگران</span></label>
+                <label class="option"><input type="radio" name="q29" value="d"> <span>د) نادیده گرفتن دیگران</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) درک کردن دیگران</div>
+        </div>
+
+        <!-- سوال ۳۰ -->
+        <div class="question-box" id="q30">
+            <div class="question-text">۳۰. کدام یک از جملات زیر درباره همدلی درست است؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q30" value="a"> <span>الف) همدلی فقط مخصوص بزرگسالان است</span></label>
+                <label class="option"><input type="radio" name="q30" value="b"> <span>ب) همدلی فقط در مدرسه انجام می‌شود</span></label>
+                <label class="option"><input type="radio" name="q30" value="c"> <span>ج) همدلی در همه مکان‌ها و برای همه افراد قابل انجام است</span></label>
+                <label class="option"><input type="radio" name="q30" value="d"> <span>د) همدلی فقط با پول انجام می‌شود</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ج) همدلی در همه مکان‌ها و برای همه افراد قابل انجام است</div>
+        </div>
+
+        <!-- سوال ۳۱ -->
+        <div class="question-box" id="q31">
+            <div class="question-text">۳۱. جمعیت هلال احمر در حوادث چه کارهایی انجام می‌دهد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q31" value="a"> <span>الف) رساندن غذا و آب</span></label>
+                <label class="option"><input type="radio" name="q31" value="b"> <span>ب) رساندن دارو</span></label>
+                <label class="option"><input type="radio" name="q31" value="c"> <span>ج) کمک به آسیب‌دیدگان</span></label>
+                <label class="option"><input type="radio" name="q31" value="d"> <span>د) همه موارد</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> د) همه موارد</div>
+        </div>
+
+        <!-- سوال ۳۲ -->
+        <div class="question-box" id="q32">
+            <div class="question-text">۳۲. سازمان انتقال خون خون را از چه کسانی می‌گیرد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q32" value="a"> <span>الف) افراد بیمار</span></label>
+                <label class="option"><input type="radio" name="q32" value="b"> <span>ب) افراد سالم</span></label>
+                <label class="option"><input type="radio" name="q32" value="c"> <span>ج) افراد پیر</span></label>
+                <label class="option"><input type="radio" name="q32" value="d"> <span>د) کودکان</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> ب) افراد سالم</div>
+        </div>
+
+        <!-- سوال ۳۳ -->
+        <div class="question-box" id="q33">
+            <div class="question-text">۳۳. خون اهدایی به چه کسانی داده می‌شود؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q33" value="a"> <span>الف) به بیماران نیازمند</span></label>
+                <label class="option"><input type="radio" name="q33" value="b"> <span>ب) به افراد سالم</span></label>
+                <label class="option"><input type="radio" name="q33" value="c"> <span>ج) به کودکان</span></label>
+                <label class="option"><input type="radio" name="q33" value="d"> <span>د) به حیوانات</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) به بیماران نیازمند</div>
+        </div>
+
+        <!-- سوال ۳۴ -->
+        <div class="question-box" id="q34">
+            <div class="question-text">۳۴. کدام یک از موارد زیر باعث تقویت دوستی می‌شود؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q34" value="a"> <span>الف) همدلی کردن با دوستان</span></label>
+                <label class="option"><input type="radio" name="q34" value="b"> <span>ب) دعوا کردن با دوستان</span></label>
+                <label class="option"><input type="radio" name="q34" value="c"> <span>ج) مسخره کردن دوستان</span></label>
+                <label class="option"><input type="radio" name="q34" value="d"> <span>د) نادیده گرفتن دوستان</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) همدلی کردن با دوستان</div>
+        </div>
+
+        <!-- سوال ۳۵ -->
+        <div class="question-box" id="q35">
+            <div class="question-text">۳۵. جمله «بیایید با مهربانی، دنیا را قشنگ‌تر کنیم» چه پیامی دارد؟</div>
+            <div class="options">
+                <label class="option"><input type="radio" name="q35" value="a"> <span>الف) تشویق به همدلی و مهربانی</span></label>
+                <label class="option"><input type="radio" name="q35" value="b"> <span>ب) تشویق به پول درآوردن</span></label>
+                <label class="option"><input type="radio" name="q35" value="c"> <span>ج) تشویق به درس خواندن</span></label>
+                <label class="option"><input type="radio" name="q35" value="d"> <span>د) تشویق به بازی کردن</span></label>
+            </div>
+            <div class="answer"><strong>پاسخ صحیح:</strong> الف) تشویق به همدلی و مهربانی</div>
+        </div>
+    </form>
+
+    <!-- بخش آزمون و نمره‌دهی -->
+    <div class="exam-footer">
+        <h2>🎯 بخش تصحیح آزمون 🎯</h2>
+        <p>پاسخ همه سوالات را انتخاب کن، بعد دکمه سبز رو بزن! 🌱</p>
+        <button class="btn-submit" onclick="calculateScore()">✨ تصحیح آزمون و مشاهده نمره ✨</button>
+        
+        <div class="result-box" id="resultBox">
+            <div class="score-text">نمره شما: <span id="scoreDisplay">۰</span> از ۲۰</div>
+            <div class="feedback" id="feedbackText"></div>
+            <button class="btn-reset" onclick="resetQuiz()">🔄 آزمون مجدد</button>
+        </div>
+    </div>
+
+    <script>
+        // کلید پاسخ‌ها
+        const answerKey = {
+            q1: "b", q2: "a", q3: "a", q4: "b", q5: "d",
+            q6: "b", q7: "b", q8: "c", q9: "a", q10: "a",
+            q11: "d", q12: "a", q13: "c", q14: "d", q15: "a",
+            q16: "a", q17: "d", q18: "a", q19: "d", q20: "a",
+            q21: "a", q22: "b", q23: "a", q24: "a", q25: "a",
+            q26: "d", q27: "a", q28: "d", q29: "a", q30: "c",
+            q31: "d", q32: "b", q33: "a", q34: "a", q35: "a"
+        };
+
+        function calculateScore() {
+            let correctCount = 0;
+            let totalQuestions = 35;
+            let scorePerQuestion = 20 / totalQuestions; 
+
+            // پاک کردن وضعیت قبلی
+            document.querySelectorAll('.question-box').forEach(box => {
+                box.classList.remove('correct', 'wrong');
+            });
+            document.querySelectorAll('.answer').forEach(ans => {
+                ans.classList.remove('show');
+            });
+
+            // بررسی پاسخ‌ها
+            for (let i = 1; i <= totalQuestions; i++) {
+                let qName = 'q' + i;
+                let selectedOption = document.querySelector(`input[name="${qName}"]:checked`);
+                let questionBox = document.getElementById(qName);
+                let answerDiv = questionBox.querySelector('.answer');
+
+                if (selectedOption) {
+                    if (selectedOption.value === answerKey[qName]) {
+                        correctCount++;
+                        questionBox.classList.add('correct');
+                    } else {
+                        questionBox.classList.add('wrong');
+                    }
+                } else {
+                    questionBox.classList.add('wrong');
+                }
+                answerDiv.classList.add('show');
+            }
+
+            // محاسبه نمره نهایی
+            let finalScore = (correctCount * scorePerQuestion).toFixed(2);
+            
+            document.getElementById('scoreDisplay').innerText = finalScore;
+            document.getElementById('resultBox').classList.add('show');
+
+            // پیام بازخورد
+            let feedback = "";
+            if (finalScore >= 18) {
+                feedback = "🌟 آفرین! تو یک قهرمان مهربونی! درس رو عالی یاد گرفتی. 🏆";
+            } else if (finalScore >= 14) {
+                feedback = "👍 خیلی خوبه! فقط یکم دیگه مطالعه کن تا ۲۰ بشی. 🌈";
+            } else if (finalScore >= 10) {
+                feedback = "📖 قابل قبوله، اما بیا با هم دوباره درس رو مرور کنیم. 💪";
+            } else {
+                feedback = "💖 اشکالی نداره! درس رو دوباره بخون و باز آزمون بده. تو می‌تونی! 🌱";
+            }
+            document.getElementById('feedbackText').innerText = feedback;
+            
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('quizForm').reset();
+            document.querySelectorAll('.question-box').forEach(box => {
+                box.classList.remove('correct', 'wrong');
+            });
+            document.querySelectorAll('.answer').forEach(ans => {
+                ans.classList.remove('show');
+            });
+            document.getElementById('resultBox').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

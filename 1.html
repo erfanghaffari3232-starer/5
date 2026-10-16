@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>۳۵ سوال تشریحی درس همدلی با دیگران - مطالعات پنجم</title>
+    <!-- اضافه کردن فونت زیبای وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary-color: #6a1b9a; /* بنفش */
+            --secondary-color: #e91e63; /* صورتی */
+            --bg-color: #f3e5f5; /* بنفش خیلی روشن */
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --option-bg: #f8f9fa;
+            --answer-bg: #e8f5e9;
+            --answer-border: #4caf50;
+            --tip-bg: #fff8e1;
+            --tip-border: #ffc107;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* استایل هدر */
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #ab47bc, #8e24aa);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(142, 36, 170, 0.2);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 800;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* استایل کارت سوالات */
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-weight: 800;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .question-text::before {
+            content: "❓";
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
+
+        /* استایل گزینه‌ها */
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option {
+            background-color: var(--option-bg);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            border: 1px solid #eee;
+        }
+
+        /* استایل پاسخ */
+        .answer-box {
+            background-color: var(--answer-bg);
+            border-right: 4px solid var(--answer-border);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .answer-box::before {
+            content: "✅";
+            margin-left: 8px;
+        }
+
+        /* استایل نکته */
+        .tip-box {
+            background-color: var(--tip-bg);
+            border-right: 4px solid var(--tip-border);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #f57f17;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+        }
+
+        .tip-box::before {
+            content: "💡";
+            margin-left: 8px;
+            font-size: 1.1em;
+        }
+
+        /* استایل نقشه ذهنی */
+        .mindmap-section {
+            margin-top: 50px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .mindmap-section h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        .mindmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .mindmap-center {
+            background: linear-gradient(135deg, #f06292, #e91e63);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            text-align: center;
+        }
+
+        .mindmap-branches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .mindmap-branch {
+            background-color: #fce4ec;
+            border-radius: 15px;
+            padding: 15px;
+            width: calc(50% - 10px);
+            box-sizing: border-box;
+            border: 1px solid #f8bbd0;
+        }
+
+        .mindmap-branch h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            border-bottom: 1px dashed #f48fb1;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mindmap-branch h3::before {
+            content: "🔹";
+            margin-left: 8px;
+        }
+
+        .mindmap-branch ul {
+            padding-right: 20px;
+            margin: 0;
+        }
+
+        .mindmap-branch li {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #444;
+        }
+
+        @media (max-width: 650px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            .mindmap-branch {
+                width: 100%;
+            }
+            header h1 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 ۳۵ سوال تشریحی درس «همدلی با دیگران»</h1>
+        <p>مطالعات اجتماعی پایه پنجم - درس ۳</p>
+    </header>
+
+    <!-- سوال ۱ -->
+    <div class="question-card">
+        <div class="question-text">همدلی به چه معناست؟</div>
+        <div class="options">
+            <div class="option">الف) همدردی کردن با دیگران</div>
+            <div class="option">ب) درک کردن احساسات و شرایط دیگران</div>
+            <div class="option">ج) کمک مالی به نیازمندان</div>
+            <div class="option">د) دوست پیدا کردن در مدرسه</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) درک کردن احساسات و شرایط دیگران</div>
+        <div class="tip-box">نکته: همدلی یعنی خودمان را جای دیگران بگذاریم و شرایط آن‌ها را درک کنیم.</div>
+    </div>
+
+    <!-- سوال ۲ -->
+    <div class="question-card">
+        <div class="question-text">وقتی کسی غمگین است، اولین کار برای همدلی با او چیست؟</div>
+        <div class="options">
+            <div class="option">الف) پرسیدن اینکه چه احساسی دارد</div>
+            <div class="option">ب) دعوت او به بازی</div>
+            <div class="option">ج) نصیحت کردن او</div>
+            <div class="option">د) نادیده گرفتن او</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) پرسیدن اینکه چه احساسی دارد</div>
+        <div class="tip-box">نکته: قدم اول در همدلی، توجه و پرسیدن حال فرد غمگین است.</div>
+    </div>
+
+    <!-- سوال ۳ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از موارد زیر از کارهایی است که می‌توانیم برای کمک به فرد غمگین انجام دهیم؟</div>
+        <div class="options">
+            <div class="option">الف) به حرف‌هایش خوب گوش دادن</div>
+            <div class="option">ب) عوض کردن موضوع صحبت</div>
+            <div class="option">ج) مقایسه کردن او با دیگران</div>
+            <div class="option">د) تنها گذاشتن او</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) به حرف‌هایش خوب گوش دادن</div>
+        <div class="tip-box">نکته: گوش دادن فعال، به فرد غمگین احساس اهمیت و آرامش می‌دهد.</div>
+    </div>
+
+    <!-- سوال ۴ -->
+    <div class="question-card">
+        <div class="question-text">هنگام همدلی با فرد غمگین، چه جمله‌ای می‌توانیم بگوییم؟</div>
+        <div class="options">
+            <div class="option">الف) «خودت را نباز، مهم نیست»</div>
+            <div class="option">ب) «آیا از من می‌توانم برای تو انجام دهم؟»</div>
+            <div class="option">ج) «تقصیر خودت بود»</div>
+            <div class="option">د) «من هم غمگینم»</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) «آیا از من می‌توانم برای تو انجام دهم؟»</div>
+        <div class="tip-box">نکته: پیشنهاد کمک عملی، نشان‌دهنده همدلی واقعی است.</div>
+    </div>
+
+    <!-- سوال ۵ -->
+    <div class="question-card">
+        <div class="question-text">چرا همدلی مهم است؟</div>
+        <div class="options">
+            <div class="option">الف) باعث می‌شود دوستی‌ها قوی‌تر شود</div>
+            <div class="option">ب) باعث افزایش محبت در جامعه می‌شود</div>
+            <div class="option">ج) احساس آرامش و امنیت ایجاد می‌کند</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: همدلی اثرات مثبت زیادی بر فرد و جامعه دارد.</div>
+    </div>
+
+    <!-- سوال ۶ -->
+    <div class="question-card">
+        <div class="question-text">کدام نهاد در حوادثی مثل زلزله و سیل به مردم کمک می‌کند؟</div>
+        <div class="options">
+            <div class="option">الف) سازمان انتقال خون</div>
+            <div class="option">ب) جمعیت هلال احمر</div>
+            <div class="option">ج) آموزش و پرورش</div>
+            <div class="option">د) شهرداری</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) جمعیت هلال احمر</div>
+        <div class="tip-box">نکته: هلال احمر در بحران‌ها به یاری آسیب‌دیدگان می‌شتابد.</div>
+    </div>
+
+    <!-- سوال ۷ -->
+    <div class="question-card">
+        <div class="question-text">سازمان انتقال خون چه وظیفه‌ای دارد؟</div>
+        <div class="options">
+            <div class="option">الف) کمک به مجروحان جنگی</div>
+            <div class="option">ب) جمع‌آوری خون سالم و رساندن به بیماران</div>
+            <div class="option">ج) آموزش امداد و نجات</div>
+            <div class="option">د) ساخت بیمارستان</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) جمع‌آوری خون سالم و رساندن به بیماران</div>
+        <div class="tip-box">نکته: اهدای خون یک عمل خداپسندانه و نجات‌بخش است.</div>
+    </div>
+
+    <!-- سوال ۸ -->
+    <div class="question-card">
+        <div class="question-text">افراد از چه سنی می‌توانند خون اهدا کنند؟</div>
+        <div class="options">
+            <div class="option">الف) ۱۵ سالگی</div>
+            <div class="option">ب) ۱۶ سالگی</div>
+            <div class="option">ج) ۱۸ سالگی</div>
+            <div class="option">د) ۲۰ سالگی</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ج) ۱۸ سالگی</div>
+        <div class="tip-box">نکته: اهدای خون شرایط سنی و سلامتی خاصی دارد.</div>
+    </div>
+
+    <!-- سوال ۹ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از موارد زیر نمونه‌ای از همدلی در خانه است؟</div>
+        <div class="options">
+            <div class="option">الف) کمک به پدر و مادر در کارها</div>
+            <div class="option">ب) تماشای تلویزیون</div>
+            <div class="option">ج) بازی با گوشی</div>
+            <div class="option">د) خوابیدن</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) کمک به پدر و مادر در کارها</div>
+        <div class="tip-box">نکته: همدلی از خانه و خانواده شروع می‌شود.</div>
+    </div>
+
+    <!-- سوال ۱۰ -->
+    <div class="question-card">
+        <div class="question-text">چگونه می‌توانیم به همسایه پیر و نیازمند کمک کنیم؟</div>
+        <div class="options">
+            <div class="option">الف) با خرید یا انجام کارهای ساده برای آن‌ها</div>
+            <div class="option">ب) با دعوت آن‌ها به مهمانی</div>
+            <div class="option">ج) با صحبت کردن درباره مشکلات</div>
+            <div class="option">د) با دادن پول زیاد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) با خرید یا انجام کارهای ساده برای آن‌ها</div>
+        <div class="tip-box">نکته: کمک‌های کوچک اما مداوم، تأثیر بزرگی در همدلی دارند.</div>
+    </div>
+
+    <!-- سوال ۱۱ -->
+    <div class="question-card">
+        <div class="question-text">همدلی در مدرسه چه شکلی است؟</div>
+        <div class="options">
+            <div class="option">الف) اگر دوستی غمگین است، با او همدلی کنیم</div>
+            <div class="option">ب) به درس و کارهایش رسیدگی کنیم</div>
+            <div class="option">ج) او را تشویق کنیم</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: مدرسه بهترین مکان برای تمرین همدلی با همکلاسی‌هاست.</div>
+    </div>
+
+    <!-- سوال ۱۲ -->
+    <div class="question-card">
+        <div class="question-text">جمله «همدلی یعنی اینکه خودمان را جای دیگران بگذاریم» بیانگر چیست؟</div>
+        <div class="options">
+            <div class="option">الف) تعریف همدلی</div>
+            <div class="option">ب) تعریف دوستی</div>
+            <div class="option">ج) تعریف محبت</div>
+            <div class="option">د) تعریف احترام</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) تعریف همدلی</div>
+        <div class="tip-box">نکته: این جمله معروف‌ترین تعریف برای همدلی است.</div>
+    </div>
+
+    <!-- سوال ۱۳ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از کارهای زیر باعث تقویت همدلی نمی‌شود؟</div>
+        <div class="options">
+            <div class="option">الف) گوش دادن به حرف‌های دیگران</div>
+            <div class="option">ب) درک احساسات دیگران</div>
+            <div class="option">ج) مسخره کردن احساسات دیگران</div>
+            <div class="option">د) کمک به نیازمندان</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ج) مسخره کردن احساسات دیگران</div>
+        <div class="tip-box">نکته: مسخره کردن، ضد همدلی و باعث آزردگی دیگران می‌شود.</div>
+    </div>
+
+    <!-- سوال ۱۴ -->
+    <div class="question-card">
+        <div class="question-text">جمعیت هلال احمر در چه زمینه‌هایی به مردم کمک می‌کند؟</div>
+        <div class="options">
+            <div class="option">الف) در حوادث طبیعی مثل زلزله و سیل</div>
+            <div class="option">ب) رساندن غذا، آب و دارو به آسیب‌دیدگان</div>
+            <div class="option">ج) کمک به مجروحان</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: هلال احمر در بحران‌ها نقش حیاتی دارد.</div>
+    </div>
+
+    <!-- سوال ۱۵ -->
+    <div class="question-card">
+        <div class="question-text">اهدای خون چه فوایدی برای جامعه دارد؟</div>
+        <div class="options">
+            <div class="option">الف) به بیماران نیازمند کمک می‌کند</div>
+            <div class="option">ب) باعث سلامت خود فرد می‌شود</div>
+            <div class="option">ج) باعث افزایش جمعیت می‌شود</div>
+            <div class="option">د) باعث کاهش بیماری‌ها می‌شود</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) به بیماران نیازمند کمک می‌کند</div>
+        <div class="tip-box">نکته: اهدای خون یک نوع همدلی در سطح جامعه است.</div>
+    </div>
+
+    <!-- سوال ۱۶ -->
+    <div class="question-card">
+        <div class="question-text">چرا باید به حرف‌های فرد غمگین خوب گوش دهیم؟</div>
+        <div class="options">
+            <div class="option">الف) تا احساس بهتری پیدا کند</div>
+            <div class="option">ب) تا ما را دوست داشته باشد</div>
+            <div class="option">ج) تا مشکلش حل شود</div>
+            <div class="option">د) تا ما خسته شویم</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) تا احساس بهتری پیدا کند</div>
+        <div class="tip-box">نکته: گوش دادن، نوعی حمایت عاطفی است.</div>
+    </div>
+
+    <!-- سوال ۱۷ -->
+    <div class="question-card">
+        <div class="question-text">کدام گزینه نمونه‌ای از همدلی در جامعه است؟</div>
+        <div class="options">
+            <div class="option">الف) کمک به نیازمندان</div>
+            <div class="option">ب) شرکت در کارهای خیر</div>
+            <div class="option">ج) اهدای خون</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: همدلی در جامعه به شکل‌های مختلفی بروز می‌کند.</div>
+    </div>
+
+    <!-- سوال ۱۸ -->
+    <div class="question-card">
+        <div class="question-text">جمله «بیایید با مهربانی، دنیا را قشنگ‌تر کنیم» به چه چیزی اشاره دارد؟</div>
+        <div class="options">
+            <div class="option">الف) اهمیت همدلی و مهربانی</div>
+            <div class="option">ب) اهمیت پول</div>
+            <div class="option">ج) اهمیت درس خواندن</div>
+            <div class="option">د) اهمیت بازی کردن</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) اهمیت همدلی و مهربانی</div>
+        <div class="tip-box">نکته: این شعار زیبا، پیام اصلی درس ماست.</div>
+    </div>
+
+    <!-- سوال ۱۹ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از کارهای زیر باعث می‌شود فرد غمگین احساس بهتری داشته باشد؟</div>
+        <div class="options">
+            <div class="option">الف) پرسیدن حال او</div>
+            <div class="option">ب) گوش دادن به حرف‌هایش</div>
+            <div class="option">ج) کمک کردن به او</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: ترکیب این سه کار، همدلی کامل را می‌سازد.</div>
+    </div>
+
+    <!-- سوال ۲۰ -->
+    <div class="question-card">
+        <div class="question-text">همدلی چه تأثیری بر جامعه دارد؟</div>
+        <div class="options">
+            <div class="option">الف) باعث افزایش محبت و احترام می‌شود</div>
+            <div class="option">ب) باعث افزایش جمعیت می‌شود</div>
+            <div class="option">ج) باعث کاهش پول می‌شود</div>
+            <div class="option">د) باعث افزایش ترافیک می‌شود</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) باعث افزایش محبت و احترام می‌شود</div>
+        <div class="tip-box">نکته: همدلی، سرمایه اجتماعی را افزایش می‌دهد.</div>
+    </div>
+
+    <!-- سوال ۲۱ -->
+    <div class="question-card">
+        <div class="question-text">در همدلی، چه چیزی را باید درک کنیم؟</div>
+        <div class="options">
+            <div class="option">الف) احساسات و شرایط دیگران</div>
+            <div class="option">ب) پول دیگران</div>
+            <div class="option">ج) خانه دیگران</div>
+            <div class="option">د) ماشین دیگران</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) احساسات و شرایط دیگران</div>
+        <div class="tip-box">نکته: همدلی مادی نیست، عاطفی و روانی است.</div>
+    </div>
+
+    <!-- سوال ۲۲ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از نهادهای زیر برای کمک به نیازمندان خون جمع‌آوری می‌کند؟</div>
+        <div class="options">
+            <div class="option">الف) هلال احمر</div>
+            <div class="option">ب) سازمان انتقال خون</div>
+            <div class="option">ج) شهرداری</div>
+            <div class="option">د) آموزش و پرورش</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) سازمان انتقال خون</div>
+        <div class="tip-box">نکته: این سازمان متولی اصلی جمع‌آوری خون در کشور است.</div>
+    </div>
+
+    <!-- سوال ۲۳ -->
+    <div class="question-card">
+        <div class="question-text">چه کسی می‌تواند خون اهدا کند؟</div>
+        <div class="options">
+            <div class="option">الف) هر کسی که سالم باشد و ۱۸ سال داشته باشد</div>
+            <div class="option">ب) هر کسی که بیمار باشد</div>
+            <div class="option">ج) هر کسی که ۱۰ سال داشته باشد</div>
+            <div class="option">د) هر کسی که پول داشته باشد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) هر کسی که سالم باشد و ۱۸ سال داشته باشد</div>
+        <div class="tip-box">نکته: سلامت جسمی و سن قانونی، شروط اصلی اهدای خون هستند.</div>
+    </div>
+
+    <!-- سوال ۲۴ -->
+    <div class="question-card">
+        <div class="question-text">اگر دوستی در مدرسه غمگین باشد، چه کار می‌توانیم بکنیم؟</div>
+        <div class="options">
+            <div class="option">الف) با او همدلی کنیم و به درسش رسیدگی کنیم</div>
+            <div class="option">ب) او را مسخره کنیم</div>
+            <div class="option">ج) او را تنها بگذاریم</div>
+            <div class="option">د) به معلم بگوییم</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) با او همدلی کنیم و به درسش رسیدگی کنیم</div>
+        <div class="tip-box">نکته: کمک به دوست، شامل حمایت عاطفی و درسی می‌شود.</div>
+    </div>
+
+    <!-- سوال ۲۵ -->
+    <div class="question-card">
+        <div class="question-text">همدلی با پدر و مادر چگونه است؟</div>
+        <div class="options">
+            <div class="option">الف) با کمک کردن در کارهای خانه</div>
+            <div class="option">ب) با دعوا کردن</div>
+            <div class="option">ج) با بی‌توجهی</div>
+            <div class="option">د) با تماشای تلویزیون</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) با کمک کردن در کارهای خانه</div>
+        <div class="tip-box">نکته: درک زحمات والدین و کمک به آن‌ها، مصداق همدلی است.</div>
+    </div>
+
+    <!-- سوال ۲۶ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از موارد زیر از فواید همدلی است؟</div>
+        <div class="options">
+            <div class="option">الف) افزایش آرامش و امنیت</div>
+            <div class="option">ب) افزایش دوستی‌ها</div>
+            <div class="option">ج) افزایش محبت در جامعه</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: همدلی منافع فردی و اجتماعی زیادی دارد.</div>
+    </div>
+
+    <!-- سوال ۲۷ -->
+    <div class="question-card">
+        <div class="question-text">چرا همدلی باعث شادتر شدن زندگی می‌شود؟</div>
+        <div class="options">
+            <div class="option">الف) چون باعث افزایش مهربانی می‌شود</div>
+            <div class="option">ب) چون باعث افزایش پول می‌شود</div>
+            <div class="option">ج) چون باعث افزایش جمعیت می‌شود</div>
+            <div class="option">د) چون باعث کاهش دوستی می‌شود</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) چون باعث افزایش مهربانی می‌شود</div>
+        <div class="tip-box">نکته: مهربانی چرخه‌ای است که به خود فرد نیز بازمی‌گردد.</div>
+    </div>
+
+    <!-- سوال ۲۸ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از کارهای زیر باعث همدلی بیشتر با همسایه می‌شود؟</div>
+        <div class="options">
+            <div class="option">الف) خرید کردن برای همسایه پیر</div>
+            <div class="option">ب) انجام کارهای ساده برای او</div>
+            <div class="option">ج) احوال‌پرسی از او</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: همدلی با همسایه، از کارهای کوچک شروع می‌شود.</div>
+    </div>
+
+    <!-- سوال ۲۹ -->
+    <div class="question-card">
+        <div class="question-text">در همدلی، چه چیزی مهم است؟</div>
+        <div class="options">
+            <div class="option">الف) درک کردن دیگران</div>
+            <div class="option">ب) نصیحت کردن دیگران</div>
+            <div class="option">ج) مسخره کردن دیگران</div>
+            <div class="option">د) نادیده گرفتن دیگران</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) درک کردن دیگران</div>
+        <div class="tip-box">نکته: درک کردن، کلیدواژه اصلی همدلی است.</div>
+    </div>
+
+    <!-- سوال ۳۰ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از جملات زیر درباره همدلی درست است؟</div>
+        <div class="options">
+            <div class="option">الف) همدلی فقط مخصوص بزرگسالان است</div>
+            <div class="option">ب) همدلی فقط در مدرسه انجام می‌شود</div>
+            <div class="option">ج) همدلی در همه مکان‌ها و برای همه افراد قابل انجام است</div>
+            <div class="option">د) همدلی فقط با پول انجام می‌شود</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ج) همدلی در همه مکان‌ها و برای همه افراد قابل انجام است</div>
+        <div class="tip-box">نکته: همدلی محدود به مکان، زمان یا سن خاصی نیست.</div>
+    </div>
+
+    <!-- سوال ۳۱ -->
+    <div class="question-card">
+        <div class="question-text">جمعیت هلال احمر در حوادث چه کارهایی انجام می‌دهد؟</div>
+        <div class="options">
+            <div class="option">الف) رساندن غذا و آب</div>
+            <div class="option">ب) رساندن دارو</div>
+            <div class="option">ج) کمک به آسیب‌دیدگان</div>
+            <div class="option">د) همه موارد</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: د) همه موارد</div>
+        <div class="tip-box">نکته: هلال احمر در بحران‌ها به نیازهای فوری مردم پاسخ می‌دهد.</div>
+    </div>
+
+    <!-- سوال ۳۲ -->
+    <div class="question-card">
+        <div class="question-text">سازمان انتقال خون خون را از چه کسانی می‌گیرد؟</div>
+        <div class="options">
+            <div class="option">الف) افراد بیمار</div>
+            <div class="option">ب) افراد سالم</div>
+            <div class="option">ج) افراد پیر</div>
+            <div class="option">د) کودکان</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: ب) افراد سالم</div>
+        <div class="tip-box">نکته: خون اهدایی باید از فردی سالم و بدون بیماری باشد.</div>
+    </div>
+
+    <!-- سوال ۳۳ -->
+    <div class="question-card">
+        <div class="question-text">خون اهدایی به چه کسانی داده می‌شود؟</div>
+        <div class="options">
+            <div class="option">الف) به بیماران نیازمند</div>
+            <div class="option">ب) به افراد سالم</div>
+            <div class="option">ج) به کودکان</div>
+            <div class="option">د) به حیوانات</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) به بیماران نیازمند</div>
+        <div class="tip-box">نکته: خون اهدایی جان بیماران را نجات می‌دهد.</div>
+    </div>
+
+    <!-- سوال ۳۴ -->
+    <div class="question-card">
+        <div class="question-text">کدام یک از موارد زیر باعث تقویت دوستی می‌شود؟</div>
+        <div class="options">
+            <div class="option">الف) همدلی کردن با دوستان</div>
+            <div class="option">ب) دعوا کردن با دوستان</div>
+            <div class="option">ج) مسخره کردن دوستان</div>
+            <div class="option">د) نادیده گرفتن دوستان</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) همدلی کردن با دوستان</div>
+        <div class="tip-box">نکته: همدلی، پایه و اساس دوستی‌های پایدار است.</div>
+    </div>
+
+    <!-- سوال ۳۵ -->
+    <div class="question-card">
+        <div class="question-text">جمله «بیایید با مهربانی، دنیا را قشنگ‌تر کنیم» چه پیامی دارد؟</div>
+        <div class="options">
+            <div class="option">الف) تشویق به همدلی و مهربانی</div>
+            <div class="option">ب) تشویق به پول درآوردن</div>
+            <div class="option">ج) تشویق به درس خواندن</div>
+            <div class="option">د) تشویق به بازی کردن</div>
+        </div>
+        <div class="answer-box">پاسخ صحیح: الف) تشویق به همدلی و مهربانی</div>
+        <div class="tip-box">نکته: این جمله، شعار پایانی و پیام اصلی درس است.</div>
+    </div>
+
+    <!-- بخش نقشه ذهنی -->
+    <div class="mindmap-section">
+        <h2>🗺️ نقشه ذهنی درس «همدلی با دیگران»</h2>
+        <div class="mindmap">
+            <div class="mindmap-center">
+                وقتی کسی غمگین است،<br>چگونه می‌توان به او کمک کرد؟
+            </div>
+            <div class="mindmap-branches">
+                <div class="mindmap-branch">
+                    <h3>همدلی یعنی چه؟</h3>
+                    <ul>
+                        <li>یعنی خودمان را جای دیگران بگذاریم.</li>
+                        <li>احساسات، فکرها و شرایط آن‌ها را درک کنیم.</li>
+                        <li>با مهربانی کنارشان باشیم.</li>
+                    </ul>
+                </div>
+                <div class="mindmap-branch">
+                    <h3>چه کارهایی می‌توانیم انجام دهیم؟</h3>
+                    <ul>
+                        <li>۱. دوستانه رفتار کنیم و کنار او باشیم.</li>
+                        <li>۲. از او بپرسیم چه احساسی دارد و چه کمکی از ما می‌خواهد.</li>
+                        <li>۳. به حرف‌هایش گوش دهیم و به او اهمیت دهیم.</li>
+                        <li>۴. بگوییم: «آیا از من می‌توانم برای تو انجام دهم؟»</li>
+                    </ul>
+                </div>
+                <div class="mindmap-branch">
+                    <h3>چرا همدلی مهم است؟</h3>
+                    <ul>
+                        <li>دوستی‌ها را قوی‌تر می‌کند.</li>
+                        <li>محبت و احترام در جامعه را بیشتر می‌کند.</li>
+                        <li>احساس آرامش و امنیت ایجاد می‌کند.</li>
+                        <li>زندگی را شادتر و مهربان‌تر می‌کند.</li>
+                    </ul>
+                </div>
+                <div class="mindmap-branch">
+                    <h3>نمونه‌هایی از همدلی</h3>
+                    <ul>
+                        <li><strong>در مدرسه:</strong> اگر دوستی غمگین است، با او همدلی کنیم و به درسش رسیدگی کنیم.</li>
+                        <li><strong>در خانه:</strong> به پدر و مادر در کارها کمک کنیم.</li>
+                        <li><strong>در همسایگی:</strong> به پیر و نیازمند کمک کنیم (خرید، کارهای ساده).</li>
+                    </ul>
+                </div>
+                <div class="mindmap-branch">
+                    <h3>نهادهای کمک‌کننده</h3>
+                    <ul>
+                        <li><strong>جمعیت هلال احمر:</strong> کمک در حوادث (زلزله، سیل)، رساندن غذا، آب، دارو.</li>
+                        <li><strong>سازمان انتقال خون:</strong> جمع‌آوری خون از افراد سالم (از ۱۸ سال) و رساندن به بیماران.</li>
+                    </ul>
+                </div>
+                <div class="mindmap-branch" style="width: 100%; background-color: #e3f2fd; border-color: #90caf9;">
+                    <h3 style="color: #1565c0; border-bottom-color: #64b5f6;">شعار پایانی</h3>
+                    <p style="text-align: center; font-weight: bold; color: #0d47a1; margin: 0;">💖 بیایید با مهربانی، دنیا را قشنگ‌تر کنیم. 💖</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
